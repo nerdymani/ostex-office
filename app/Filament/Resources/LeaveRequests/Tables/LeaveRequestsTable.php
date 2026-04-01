@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Filament\Resources\LeaveRequests\Tables;
+
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Table;
+
+class LeaveRequestsTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('user.name')->searchable()->label('Employee'),
+                TextColumn::make('type')->badge(),
+                TextColumn::make('start_date')->date()->sortable(),
+                TextColumn::make('end_date')->date(),
+                TextColumn::make('status')->badge()->color(fn($s)=>match($s){'approved'=>'success','rejected'=>'danger',default=>'warning'}),
+            ])
+            ->actions([EditAction::make()])
+            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
+    }
+}
