@@ -8,10 +8,15 @@ return new class extends Migration {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('description')->nullable();
             $table->string('file_path');
-            $table->string('department');
+            $table->string('file_name');
+            $table->integer('file_size')->nullable();
+            $table->string('mime_type')->nullable();
+            $table->string('category')->nullable();
             $table->foreignId('uploaded_by')->constrained('users')->cascadeOnDelete();
-            $table->string('category')->default('general');
+            $table->boolean('is_public')->default(true);
+            $table->integer('download_count')->default(0);
             $table->timestamps();
         });
     }

@@ -8,10 +8,11 @@ return new class extends Migration {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('body');
-            $table->string('audience')->default('all'); // all, hr, finance, etc.
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->longText('body');
+            $table->foreignId('author_id')->nullable()->constrained('users')->nullOnDelete();
             $table->boolean('is_pinned')->default(false);
+            $table->timestamp('published_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

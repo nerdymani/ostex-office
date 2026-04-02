@@ -8,13 +8,16 @@ return new class extends Migration {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('amount', 12, 2);
-            $table->string('category');
-            $table->date('expense_date');
-            $table->string('receipt_path')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('department');
             $table->foreignId('submitted_by')->constrained('users')->cascadeOnDelete();
-            $table->text('notes')->nullable();
+            $table->decimal('amount', 12, 2);
+            $table->string('currency')->default('TZS');
+            $table->string('category');
+            $table->text('description')->nullable();
+            $table->string('receipt_path')->nullable();
+            $table->date('expense_date');
+            $table->enum('status', ['pending','approved','rejected'])->default('pending');
+            $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }
