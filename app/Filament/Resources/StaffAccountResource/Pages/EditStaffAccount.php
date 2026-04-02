@@ -1,0 +1,10 @@
+<?php
+namespace App\Filament\Resources\StaffAccountResource\Pages;
+
+use App\Filament\Resources\StaffAccountResource;
+use Filament\Resources\Pages\EditRecord;
+
+class EditStaffAccount extends EditRecord
+{
+    protected static string $resource = StaffAccountResource::class;
+}
